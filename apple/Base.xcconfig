@@ -1,0 +1,8 @@
+// Shared build settings for all targets (referenced by the project's Debug and
+// Release configurations; targets inherit).
+//
+// Machine-local settings — above all the code-signing team — live in
+// Local.xcconfig, which is git-ignored. Copy Local.xcconfig.example to
+// Local.xcconfig and set your own values; without it the project builds
+// unsigned-for-nobody, and Xcode's Signing pane will ask for a team.
+#include? "Local.xcconfig"

@@ -1,0 +1,17 @@
+# Machine-local build settings (code-signing team) — see Base.xcconfig
+Local.xcconfig
+
+# Xcode — build products and per-user state (keep project.pbxproj and shared schemes)
+DerivedData/
+build/
+dist/
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# In-Xcode agent's own memory store (tool-local state; decisions belong in
+# the docs instead, not here)
+memory/
+
+# macOS
+.DS_Store

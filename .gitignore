@@ -1,0 +1,8 @@
+
+# JetBrain
+/.idea/
+# macOS
+.DS_Store
+# Python bytecode from the release tooling
+__pycache__/
+*.pyc

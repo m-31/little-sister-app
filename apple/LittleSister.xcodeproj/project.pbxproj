@@ -1,0 +1,586 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		C322B8A02FF5B40C0079A33A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C322B88A2FF5B40B0079A33A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C322B8912FF5B40B0079A33A;
+			remoteInfo = LittleSister;
+		};
+		C322B8AA2FF5B40C0079A33A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C322B88A2FF5B40B0079A33A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C322B8912FF5B40B0079A33A;
+			remoteInfo = LittleSister;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C322B8922FF5B40B0079A33A /* LittleSister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleSister.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C322B89F2FF5B40C0079A33A /* LittleSisterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LittleSisterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C322B8A92FF5B40C0079A33A /* LittleSisterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LittleSisterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3AC0F1E2FF5B40C0079A33A /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C322B8942FF5B40B0079A33A /* LittleSister */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LittleSister;
+			sourceTree = "<group>";
+		};
+		C322B8A22FF5B40C0079A33A /* LittleSisterTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LittleSisterTests;
+			sourceTree = "<group>";
+		};
+		C322B8AC2FF5B40C0079A33A /* LittleSisterUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LittleSisterUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C322B88F2FF5B40B0079A33A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C322B89C2FF5B40C0079A33A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C322B8A62FF5B40C0079A33A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C322B8892FF5B40B0079A33A = {
+			isa = PBXGroup;
+			children = (
+				C3AC0F1E2FF5B40C0079A33A /* Base.xcconfig */,
+				C322B8942FF5B40B0079A33A /* LittleSister */,
+				C322B8A22FF5B40C0079A33A /* LittleSisterTests */,
+				C322B8AC2FF5B40C0079A33A /* LittleSisterUITests */,
+				C322B8932FF5B40B0079A33A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C322B8932FF5B40B0079A33A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C322B8922FF5B40B0079A33A /* LittleSister.app */,
+				C322B89F2FF5B40C0079A33A /* LittleSisterTests.xctest */,
+				C322B8A92FF5B40C0079A33A /* LittleSisterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C322B8912FF5B40B0079A33A /* LittleSister */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C322B8B32FF5B40C0079A33A /* Build configuration list for PBXNativeTarget "LittleSister" */;
+			buildPhases = (
+				C322B88E2FF5B40B0079A33A /* Sources */,
+				C322B88F2FF5B40B0079A33A /* Frameworks */,
+				C322B8902FF5B40B0079A33A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C322B8942FF5B40B0079A33A /* LittleSister */,
+			);
+			name = LittleSister;
+			packageProductDependencies = (
+			);
+			productName = LittleSister;
+			productReference = C322B8922FF5B40B0079A33A /* LittleSister.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C322B89E2FF5B40C0079A33A /* LittleSisterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C322B8B62FF5B40C0079A33A /* Build configuration list for PBXNativeTarget "LittleSisterTests" */;
+			buildPhases = (
+				C322B89B2FF5B40C0079A33A /* Sources */,
+				C322B89C2FF5B40C0079A33A /* Frameworks */,
+				C322B89D2FF5B40C0079A33A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C322B8A12FF5B40C0079A33A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C322B8A22FF5B40C0079A33A /* LittleSisterTests */,
+			);
+			name = LittleSisterTests;
+			packageProductDependencies = (
+			);
+			productName = LittleSisterTests;
+			productReference = C322B89F2FF5B40C0079A33A /* LittleSisterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C322B8A82FF5B40C0079A33A /* LittleSisterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C322B8B92FF5B40C0079A33A /* Build configuration list for PBXNativeTarget "LittleSisterUITests" */;
+			buildPhases = (
+				C322B8A52FF5B40C0079A33A /* Sources */,
+				C322B8A62FF5B40C0079A33A /* Frameworks */,
+				C322B8A72FF5B40C0079A33A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C322B8AB2FF5B40C0079A33A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C322B8AC2FF5B40C0079A33A /* LittleSisterUITests */,
+			);
+			name = LittleSisterUITests;
+			packageProductDependencies = (
+			);
+			productName = LittleSisterUITests;
+			productReference = C322B8A92FF5B40C0079A33A /* LittleSisterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C322B88A2FF5B40B0079A33A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					C322B8912FF5B40B0079A33A = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					C322B89E2FF5B40C0079A33A = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = C322B8912FF5B40B0079A33A;
+					};
+					C322B8A82FF5B40C0079A33A = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = C322B8912FF5B40B0079A33A;
+					};
+				};
+			};
+			buildConfigurationList = C322B88D2FF5B40B0079A33A /* Build configuration list for PBXProject "LittleSister" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C322B8892FF5B40B0079A33A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C322B8932FF5B40B0079A33A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C322B8912FF5B40B0079A33A /* LittleSister */,
+				C322B89E2FF5B40C0079A33A /* LittleSisterTests */,
+				C322B8A82FF5B40C0079A33A /* LittleSisterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C322B8902FF5B40B0079A33A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C322B89D2FF5B40C0079A33A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C322B8A72FF5B40C0079A33A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C322B88E2FF5B40B0079A33A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C322B89B2FF5B40C0079A33A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C322B8A52FF5B40C0079A33A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C322B8A12FF5B40C0079A33A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C322B8912FF5B40B0079A33A /* LittleSister */;
+			targetProxy = C322B8A02FF5B40C0079A33A /* PBXContainerItemProxy */;
+		};
+		C322B8AB2FF5B40C0079A33A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C322B8912FF5B40B0079A33A /* LittleSister */;
+			targetProxy = C322B8AA2FF5B40C0079A33A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C322B8B12FF5B40C0079A33A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3AC0F1E2FF5B40C0079A33A /* Base.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C322B8B22FF5B40C0079A33A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3AC0F1E2FF5B40C0079A33A /* Base.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		C322B8B42FF5B40C0079A33A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Little Sister";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyling.LittleSister;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C322B8B52FF5B40C0079A33A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Little Sister";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyling.LittleSister;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C322B8B72FF5B40C0079A33A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyling.LittleSisterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LittleSister.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LittleSister";
+			};
+			name = Debug;
+		};
+		C322B8B82FF5B40C0079A33A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyling.LittleSisterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LittleSister.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LittleSister";
+			};
+			name = Release;
+		};
+		C322B8BA2FF5B40C0079A33A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyling.LittleSisterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = LittleSister;
+			};
+			name = Debug;
+		};
+		C322B8BB2FF5B40C0079A33A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyling.LittleSisterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = LittleSister;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C322B88D2FF5B40B0079A33A /* Build configuration list for PBXProject "LittleSister" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C322B8B12FF5B40C0079A33A /* Debug */,
+				C322B8B22FF5B40C0079A33A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C322B8B32FF5B40C0079A33A /* Build configuration list for PBXNativeTarget "LittleSister" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C322B8B42FF5B40C0079A33A /* Debug */,
+				C322B8B52FF5B40C0079A33A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C322B8B62FF5B40C0079A33A /* Build configuration list for PBXNativeTarget "LittleSisterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C322B8B72FF5B40C0079A33A /* Debug */,
+				C322B8B82FF5B40C0079A33A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C322B8B92FF5B40C0079A33A /* Build configuration list for PBXNativeTarget "LittleSisterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C322B8BA2FF5B40C0079A33A /* Debug */,
+				C322B8BB2FF5B40C0079A33A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C322B88A2FF5B40B0079A33A /* Project object */;
+}
