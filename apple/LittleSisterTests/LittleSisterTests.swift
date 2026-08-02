@@ -146,7 +146,8 @@ struct APIDecodingTests {
             from: envelope(generatedAt: "2026-06-25T18:05:00Z", status: rootNodeJSON)
         )
         #expect(response.generatedAt > Date.distantPast)
-        #expect(response.status.timestamp > Date.distantPast)
+        let ts = try #require(response.status.timestamp)
+        #expect(ts > Date.distantPast)
     }
 
     @Test("Timestamp with fractional seconds is decoded")
@@ -170,7 +171,8 @@ struct APIDecodingTests {
             from: envelope(generatedAt: "2026-06-26T14:46:40.593277Z", status: nodeJSON)
         )
         #expect(response.generatedAt > Date.distantPast)
-        #expect(response.status.timestamp > Date.distantPast)
+        let ts = try #require(response.status.timestamp)
+        #expect(ts > Date.distantPast)
     }
 
     @Test("Unknown fields in envelope and node are ignored")

@@ -107,6 +107,25 @@ struct HTTPBehaviorTests {
         #expect(UUID(uuidString: flowId) != nil)
     }
 
+    // The request must carry the *session's* idle timeout rather than
+    // URLRequest's own 60s default: leaving the default in place could silently
+    // mean a 60s idle timeout under a 30s whole-attempt cap, with nothing to say
+    // so (ADR-0011 §2). The distinctive value pins that outcome regardless of
+    // which layer supplies it — this vantage point cannot tell buildRequest's
+    // copy apart from URLSession stamping its own configuration on, and it does
+    // not need to: the reason the copy exists is that the precedence between
+    // the two is undocumented, so the outcome is the thing worth asserting.
+    @Test("The outgoing request carries the session's idle timeout")
+    func requestInheritsSessionIdleTimeout() async throws {
+        let config = URLSessionConfiguration.ephemeral
+        config.protocolClasses = [MockURLProtocol.self]
+        config.timeoutIntervalForRequest = 7
+        MockURLProtocol.handler = { req in (httpResponse(url: req.url!, statusCode: 200), validResponseData) }
+        _ = try await makeClient(session: URLSession(configuration: config)).fetchStatus()
+        let req = try #require(MockURLProtocol.lastRequest)
+        #expect(req.timeoutInterval == 7)
+    }
+
     @Test("401 produces unauthorized")
     func status401IsUnauthorized() async throws {
         MockURLProtocol.handler = { req in (httpResponse(url: req.url!, statusCode: 401), Data()) }
@@ -189,16 +208,33 @@ struct HTTPBehaviorTests {
         }
     }
 
-    @Test("Other URLError maps to APIError.networkUnavailable")
-    func otherURLErrorMapsToNetworkUnavailable() async throws {
+    @Test("URLError.notConnectedToInternet maps to APIError.noConnection")
+    func notConnectedMapsToNoConnection() async throws {
         MockURLProtocol.handler = { _ in throw URLError(.notConnectedToInternet) }
         do {
             _ = try await client.fetchStatus()
             #expect(Bool(false), "Expected error to be thrown")
         } catch let e as APIError {
-            guard case .networkUnavailable = e else {
-                #expect(Bool(false), "Expected .networkUnavailable, got \(e)"); return
+            guard case .noConnection = e else {
+                #expect(Bool(false), "Expected .noConnection, got \(e)"); return
             }
+        }
+    }
+
+    // The taxonomy itself is covered exhaustively in FailureTaxonomyTests; this
+    // pins the one thing only the client knows — that the host it reports is the
+    // endpoint's, not something a caller passed in.
+    @Test("A resolution failure reports the endpoint's own host")
+    func resolutionFailureCarriesEndpointHost() async throws {
+        MockURLProtocol.handler = { _ in throw URLError(.cannotFindHost) }
+        do {
+            _ = try await client.fetchStatus()
+            #expect(Bool(false), "Expected error to be thrown")
+        } catch let e as APIError {
+            guard case .cannotResolveHost(let host) = e else {
+                #expect(Bool(false), "Expected .cannotResolveHost, got \(e)"); return
+            }
+            #expect(host == "test.example")
         }
     }
 

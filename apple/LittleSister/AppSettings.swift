@@ -15,6 +15,14 @@ struct AppSettings {
     static let defaultBaseURL = URL(string: "http://localhost:8000")!
     static let defaultPollInterval = 60
 
+    // The bounds of the setting, owned here with the setting itself: the
+    // Settings stepper clamps to them, the polling loop clamps whatever its
+    // provider hands back to the minimum, and the request timeout budget is
+    // derived from a value already clamped to it — so the three cannot drift
+    // apart into constants that only happen to line up.
+    static let minimumPollInterval = 5
+    static let maximumPollInterval = 3600
+
     static let defaultAlarmSoundName = "little-sister_voice"
 
     // (label, name) pairs for the two bundled sounds. `name` is what's persisted

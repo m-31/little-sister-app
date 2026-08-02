@@ -84,6 +84,59 @@ way to silence an alarm early, by deliberate design.
 
 → Full record: [`adr/0007-alarm-acknowledgment-scope.md`](adr/0007-alarm-acknowledgment-scope.md)
 
+### ADR-0008 — Settings and Debug Log are AppKit windows, not SwiftUI scenes
+**Q:** Why did "Settings…" and "View Debug Log…" do nothing — silently, with
+no error — after the app was launched at login, while "Open dashboard" from
+the same menu kept working?
+
+**A:** Because both went through a SwiftUI scene that a login-launched
+accessory app never presents. They now bypass SwiftUI's scene and window
+machinery entirely: `WindowPresenter` builds an `NSWindow` around each
+SwiftUI view and orders it front itself. This supersedes the `HiddenWindowView`
++ `NotificationCenter` workaround, which is deleted.
+
+→ Full record: [`adr/0008-appkit-owned-secondary-windows.md`](adr/0008-appkit-owned-secondary-windows.md)
+
+### ADR-0009 — One timestamp vocabulary in the menu, in this Mac's timezone
+**Q:** What does the menu's "Updated:" line actually mean — the last poll, or
+the server's own reading? And why could a ten-day-old value look like this
+morning?
+
+**A:** It was `status.timestamp`, shown only in some states and under a label
+used nowhere else. Every state now shows the same three instants under the
+same labels — `Node observed`, `Server snapshot`, `Last request` — with the
+date included whenever the value isn't from today, and `(stale)` taken from
+the server's own flag rather than a threshold invented here.
+
+→ Full record: [`adr/0009-one-timestamp-vocabulary.md`](adr/0009-one-timestamp-vocabulary.md)
+
+### ADR-0010 — A shortened, backing-off retry while polling is failing
+**Q:** After a reboot the app sat at `unavailable` for about 90 seconds. Should
+a failed poll really be followed by the same wait as a successful one?
+
+**A:** No. While polls are failing the delay starts at 5s and doubles with each
+consecutive failure, capped at the configured interval and reset by the first
+success — so a transient outage recovers quickly while a server that is down
+all night is polled no more often than before.
+
+→ Full record: [`adr/0010-shorter-retry-while-failing.md`](adr/0010-shorter-retry-while-failing.md)
+
+### ADR-0011 — Connectivity policy: a failure taxonomy, timeouts derived from the poll interval, and waiting-for-network as a reported state
+**Q:** A poll can fail six materially different ways, but the app reported two
+of them. Its 30-second timeout knew nothing about the poll interval, so a
+5-second setting was quietly overruled. And while the session waited for a
+network path, the app looked frozen rather than informed.
+
+**A:** Map `URLError` to distinct reasons; derive one timeout budget from the
+poll interval and split it between the total cap and the idle timeout; report
+waiting-for-connectivity as a presentational flag that never reaches
+`applyState`. `waitsForConnectivity` stays on — it already *is* the connectivity
+monitor, so `NWPathMonitor` is not adopted. Transient failures keep ADR-0010's
+backoff; a definite answer (`401`, `404`, bad schema version) waits
+`max(pollInterval, 60)` instead.
+
+→ Full record: [`adr/0011-connectivity-policy.md`](adr/0011-connectivity-policy.md)
+
 ### Releases — the library's generated-`main` pattern (no ADR)
 **Q:** How does this repository publish releases?
 

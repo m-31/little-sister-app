@@ -95,8 +95,10 @@ something other than `ERROR`) clears the alert.
   otherwise a plain monochrome glyph matching the surrounding menu bar chrome.
 - **Dropdown menu** — current state, target endpoint, timing (server
   snapshot / node observed / last request), the first reason when not
-  healthy, and action items: Refresh now, Open dashboard (launches the
-  browser dashboard for the same endpoint), View Debug Log…, Settings…, Quit.
+  healthy, a "Waiting for network…" line while the client is waiting for a
+  usable network path, and action items: Refresh now, Open dashboard
+  (launches the browser dashboard for the same endpoint), View Debug Log…,
+  Settings…, Quit.
   An "Acknowledge Alarm" item appears only while an alarm is actively
   repeating.
 - **Settings window** — base URL, node path, poll interval, bearer token,

@@ -40,8 +40,8 @@ struct SettingsView: View {
     @State private var customAlarmSoundPath: String? = nil
     @State private var modalAlertOnError = true
 
-    private let minInterval = 5
-    private let maxInterval = 3600
+    private let minInterval = AppSettings.minimumPollInterval
+    private let maxInterval = AppSettings.maximumPollInterval
 
     var body: some View {
         Form {
@@ -131,9 +131,6 @@ struct SettingsView: View {
         .frame(minWidth: 380, maxWidth: 480)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear(perform: loadValues)
-        .onDisappear {
-            NotificationCenter.default.post(name: .settingsWindowClosed, object: nil)
-        }
     }
 
     private func loadValues() {

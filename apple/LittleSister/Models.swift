@@ -45,7 +45,7 @@ struct StatusNode: Decodable {
     let ownCode: StatusCode
     let code: StatusCode
     let reasons: [String]
-    let timestamp: Date
+    let timestamp: Date?
     let frequencySeconds: Int?
     let maintenance: Bool
     let stale: Bool

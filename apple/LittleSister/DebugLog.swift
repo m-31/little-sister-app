@@ -13,8 +13,10 @@ struct DebugLogEntry: Identifiable {
     let category: Category
     let message: String
 
-    enum Category: String {
-        case lifecycle, poll, notification, settings
+    enum Category: String, CaseIterable, Identifiable {
+        case lifecycle, poll, notification, settings, menu
+
+        var id: String { rawValue }
     }
 }
 
@@ -42,16 +44,37 @@ final class DebugLog {
         logger.log("\(category.rawValue, privacy: .public): \(message, privacy: .public)")
     }
 
-    // Formats all current entries as plain text, newest first, for clipboard export.
-    func formattedForClipboard() -> String {
-        entries.reversed().map { entry in
+    // Formats entries as plain text, newest first, for clipboard export.
+    // Defaults to the whole buffer; the Debug Log window passes its currently
+    // visible subset when a filter is active.
+    func formattedForClipboard(_ subset: [DebugLogEntry]? = nil) -> String {
+        (subset ?? entries).reversed().map { entry in
             let ts = entry.timestamp.formatted(date: .omitted, time: .standard)
             return "[\(ts)] \(entry.category.rawValue): \(entry.message)"
         }.joined(separator: "\n")
     }
 
-    // Clears the buffer — used only by tests to reset shared state between runs.
+    // Clears the buffer — the Debug Log window's Clear button, and tests
+    // resetting shared state between runs.
     func reset() {
         entries.removeAll()
+    }
+
+    // The Debug Log window's filtering, kept here as a pure function so it can
+    // be tested without a window. Hidden categories are dropped first; an empty
+    // query then matches everything, and a non-empty one matches the message or
+    // the category name, case-insensitively.
+    static func visibleEntries(
+        from entries: [DebugLogEntry],
+        hiding hidden: Set<DebugLogEntry.Category>,
+        matching query: String
+    ) -> [DebugLogEntry] {
+        let needle = query.trimmingCharacters(in: .whitespaces)
+        return entries.filter { entry in
+            guard !hidden.contains(entry.category) else { return false }
+            guard !needle.isEmpty else { return true }
+            return entry.message.localizedCaseInsensitiveContains(needle)
+                || entry.category.rawValue.localizedCaseInsensitiveContains(needle)
+        }
     }
 }

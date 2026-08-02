@@ -20,7 +20,15 @@ on the JSON status API; its contract lives alongside in [`docs/api/`](docs/api/)
 
 ## Build & test
 
-Open the project and use Run / Test (⌘R / ⌘U), or `xcodebuild` from this directory.
+Open the project and use Run / Test (⌘R / ⌘U), or run the suite from a terminal
+with [`scripts/run_tests.sh`](scripts/run_tests.sh) — the same `xcodebuild`
+invocation the release tooling uses, so a green run here means a green run there:
+
+```sh
+scripts/run_tests.sh                                            # whole suite
+scripts/run_tests.sh -only-testing:LittleSisterTests/APIClientTests
+```
+
 Unit tests must never call a real backend — they mock `URLSession`.
 
 Code signing is machine-local: copy [`Local.xcconfig.example`](Local.xcconfig.example)
@@ -43,6 +51,14 @@ builds a Release version of the app and packages it into a disk image:
 
 ```sh
 scripts/make_dmg.sh          # -> apple/dist/LittleSister-<version>.dmg
+```
+
+The version in that filename comes from `MARKETING_VERSION`, which lives once
+per configuration per target. [`scripts/bump_version.sh`](scripts/bump_version.sh)
+sets every copy at once and increments the build number:
+
+```sh
+scripts/bump_version.sh 0.2.1
 ```
 
 The project signs with the local development team only

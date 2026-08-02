@@ -6,3 +6,9 @@
 // Local.xcconfig and set your own values; without it the project builds
 // unsigned-for-nobody, and Xcode's Signing pane will ask for a team.
 #include? "Local.xcconfig"
+
+// Declares why the app accesses the local network — required for macOS 15's
+// Local Network privacy prompt to appear (without it the evaluation stalls).
+// Applied to all targets; the key is only meaningful for app-target-generated
+// Info.plists, so its presence in test bundles is harmless.
+INFOPLIST_KEY_NSLocalNetworkUsageDescription = Little Sister polls your monitoring server on the local network.

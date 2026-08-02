@@ -14,6 +14,15 @@
 > The rest of this ADR (buffer locally, commit only on an explicit action,
 > read `AppSettings` fresh every poll tick) is unchanged.
 
+> **Update (2026-07-27):** "fresh every poll tick" was true of the base URL,
+> node path and token, but never of the **poll interval** — that one was
+> captured once at launch, so changing it in Settings did nothing until the app
+> was relaunched. It is now supplied by an injected
+> `intervalProvider: () -> Int` alongside `clientProvider`, so the loop reads
+> the current value each tick like everything else. See
+> [ADR-0011 §2](0011-connectivity-policy.md), where a timeout budget derived
+> from that interval made the discrepancy load-bearing.
+
 ## Context
 `SettingsView` edits several values (base URL, node path, poll interval,
 bearer token, alert toggles). Two questions needed settling: when do edits

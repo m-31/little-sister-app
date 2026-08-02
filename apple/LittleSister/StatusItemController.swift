@@ -12,8 +12,37 @@ private let menuTimeFormatter: DateFormatter = {
     return f
 }()
 
+private let menuDateTimeFormatter: DateFormatter = {
+    let f = DateFormatter()
+    f.dateFormat = "MMM d, HH:mm:ss"
+    return f
+}()
+
 private extension Date {
-    var menuShortTime: String { menuTimeFormatter.string(from: self) }
+    // Time alone for today, date and time otherwise: a bare "19:16:53" on a
+    // timestamp from another day reads as this morning.
+    //
+    // Server timestamps arrive as RFC 3339 with an explicit offset and decode to
+    // an absolute instant, and neither formatter sets a `timeZone` — so both
+    // render in this Mac's zone regardless of which zone the server runs in.
+    var menuStamp: String {
+        Calendar.current.isDateInToday(self)
+            ? menuTimeFormatter.string(from: self)
+            : menuDateTimeFormatter.string(from: self)
+    }
+}
+
+// Returns the "Observed:" menu line, or nil when it carries no information.
+// Three rules (ADR-0009, updated 2026-07-30):
+//   stamp present           → "Observed: <time>" [+ "  (stale)" when stale]
+//   no stamp, stale         → "Observed: —  (stale)"
+//   no stamp, not stale     → nil (e.g. healthy multi-check root)
+func observedLine(timestamp: Date?, stale: Bool) -> String? {
+    let staleSuffix = stale ? "  (stale)" : ""
+    if let ts = timestamp {
+        return "Observed: \(ts.menuStamp)\(staleSuffix)"
+    }
+    return stale ? "Observed: —\(staleSuffix)" : nil
 }
 
 @MainActor
@@ -21,11 +50,13 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     private let statusItem: NSStatusItem
     private let menu: NSMenu
     private let viewModel: MonitoringViewModel
+    private let windows: WindowPresenter
 
     init(viewModel: MonitoringViewModel) {
         self.viewModel = viewModel
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         self.menu = NSMenu()
+        self.windows = WindowPresenter(viewModel: viewModel)
         super.init()
 
         menu.delegate = self
@@ -38,6 +69,7 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     // MARK: - NSMenuDelegate
 
     func menuNeedsUpdate(_ menu: NSMenu) {
+        DebugLog.shared.record("Menu opened: \(viewModel.displayState.label)", category: .menu)
         menu.removeAllItems()
 
         // 1. Header
@@ -48,29 +80,33 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         // 2. Target
         menu.addItem(NSMenuItem(title: "Target: \(viewModel.targetDisplay)", action: nil, keyEquivalent: ""))
 
-        // 3. Detail section — mirrors MenuView.detailSection exactly
+        // 3. Detail section — the reason line, then the shared timestamp block.
+        //
+        // Only the reason varies by state: a client-side failure has no response
+        // to read reasons from, and a healthy node's reasons get their own
+        // section below. The timestamps are identical everywhere (ADR-0009).
         switch viewModel.displayState {
         case .healthy:
-            if let r = viewModel.lastResponse {
-                menu.addItem(NSMenuItem(title: "Server snapshot: \(r.generatedAt.menuShortTime)", action: nil, keyEquivalent: ""))
-                menu.addItem(NSMenuItem(title: "Node observed: \(r.status.timestamp.menuShortTime)", action: nil, keyEquivalent: ""))
-            }
-            if let checked = viewModel.lastChecked {
-                menu.addItem(NSMenuItem(title: "Last request: \(checked.menuShortTime)", action: nil, keyEquivalent: ""))
-            }
+            break
         case .undefined(let reason), .unavailable(let reason):
             menu.addItem(NSMenuItem(title: "Reason: \(reason)", action: nil, keyEquivalent: ""))
-            if let checked = viewModel.lastChecked {
-                menu.addItem(NSMenuItem(title: "Last attempt: \(checked.menuShortTime)", action: nil, keyEquivalent: ""))
-            }
         default:
             if let reason = viewModel.lastResponse?.status.reasons.first {
                 menu.addItem(NSMenuItem(title: "Reason: \(reason)", action: nil, keyEquivalent: ""))
             }
-            if let r = viewModel.lastResponse {
-                menu.addItem(NSMenuItem(title: "Updated: \(r.status.timestamp.menuShortTime)", action: nil, keyEquivalent: ""))
-            }
         }
+
+        // 3.5. Waiting for network — only while URLSession is holding the
+        // current request open because the path is not viable yet. It explains
+        // the two lines below it rather than replacing them: during a wait the
+        // state line still shows the last answer the server gave and "Last
+        // request" stops advancing, which is exactly what an app that has
+        // silently stopped polling looks like (ADR-0011 §3).
+        if viewModel.isWaitingForNetwork {
+            menu.addItem(NSMenuItem(title: "Waiting for network…", action: nil, keyEquivalent: ""))
+        }
+
+        appendTimestamps(to: menu)
 
         // 4. Separator
         menu.addItem(.separator())
@@ -122,20 +158,81 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         menu.addItem(quit)
     }
 
+    // The timestamps shown in the menu (ADR-0009):
+    //
+    //   Observed        — observedLine(timestamp:stale:): present only where the
+    //                     server has a single answer (leaf or single-check
+    //                     container). nil+stale → dash line. nil+not-stale → absent.
+    //   Server snapshot — `generated_at`: the serving instance's clock when it
+    //                     built this response. Omitted when it renders exactly
+    //                     like "Last request" — see below.
+    //   Last request    — this app's clock when it sent its last poll. Set
+    //                     *before* the request, so it legitimately precedes the
+    //                     server's snapshot rather than following it.
+    //
+    // `lastResponse` survives a failed poll, so while unavailable the first two
+    // describe the last response that did arrive — exactly the question worth
+    // answering then — while "Last request" keeps ticking, so a stalled polling
+    // loop is visible as an old value there rather than being indistinguishable
+    // from stale server data.
+    private func appendTimestamps(to menu: NSMenu) {
+        let requestStamp = viewModel.lastChecked.map(\.menuStamp)
+        if let r = viewModel.lastResponse {
+            if let line = observedLine(timestamp: r.status.timestamp, stale: r.status.stale) {
+                menu.addItem(NSMenuItem(title: line, action: nil, keyEquivalent: ""))
+            }
+            // On a fast link the server builds its snapshot within the same
+            // second the request was sent, so this line would repeat the next one
+            // verbatim. The test is literally "would these two read the same?" —
+            // no threshold to invent, and the line comes back on its own as soon
+            // as the two clocks disagree: a slow server, skew between the two
+            // machines, or a federated branch answered from an older snapshot.
+            let snapshotStamp = r.generatedAt.menuStamp
+            if snapshotStamp != requestStamp {
+                menu.addItem(NSMenuItem(title: "Server snapshot: \(snapshotStamp)",
+                                        action: nil, keyEquivalent: ""))
+            }
+        }
+        if let requestStamp {
+            menu.addItem(NSMenuItem(title: "Last request: \(requestStamp)",
+                                    action: nil, keyEquivalent: ""))
+        }
+        // Only when the client itself can't reach the server: the two server
+        // lines above are then frozen at the last success, and how long ago that
+        // was is the thing worth knowing. `.undefined` needs no such line — the
+        // server answered, it just answered UNDEFINED.
+        if case .unavailable = viewModel.displayState, let ok = viewModel.lastSucceeded {
+            menu.addItem(NSMenuItem(title: "Last success: \(ok.menuStamp)",
+                                    action: nil, keyEquivalent: ""))
+        }
+    }
+
     // MARK: - Menu actions
 
-    @objc private func acknowledgeAlarm() { viewModel.acknowledgeAlarm() }
+    @objc private func acknowledgeAlarm() {
+        DebugLog.shared.record("Menu: Acknowledge Alarm", category: .menu)
+        viewModel.acknowledgeAlarm()
+    }
 
-    @objc private func refreshNow() { viewModel.manualRefresh() }
+    @objc private func refreshNow() {
+        DebugLog.shared.record("Menu: Refresh now", category: .menu)
+        viewModel.manualRefresh()
+    }
 
-    @objc private func openDashboard() { NSWorkspace.shared.open(AppSettings().dashboardURL) }
+    @objc private func openDashboard() {
+        let url = AppSettings().dashboardURL
+        DebugLog.shared.record("Menu: Open dashboard (\(url))", category: .menu)
+        NSWorkspace.shared.open(url)
+    }
 
     @objc private func openDebugLog() {
-        NotificationCenter.default.post(name: .openDebugLogRequest, object: nil)
+        DebugLog.shared.record("Menu: View Debug Log…", category: .menu)
+        windows.showDebugLog()
     }
 
     @objc private func openSettings() {
-        NotificationCenter.default.post(name: .openSettingsRequest, object: nil)
+        DebugLog.shared.record("Menu: Settings…", category: .menu)
+        windows.showSettings()
     }
 
     // MARK: - Icon

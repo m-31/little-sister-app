@@ -29,11 +29,24 @@ never a script.
 
 **On the working branch:**
 
-1. Bump `MARKETING_VERSION` by hand (set it in the Xcode target's General tab,
-   or edit `apple/LittleSister.xcodeproj/project.pbxproj`) — the bump *is* the
-   decision to release — and write consumer-facing notes under `## [Unreleased]`
-   in [`CHANGELOG.md`](CHANGELOG.md). `MARKETING_VERSION` is the single source of
-   the version.
+1. Bump the version — the bump *is* the decision to release:
+
+   ```sh
+   apple/scripts/bump_version.sh 0.2.2
+   ```
+
+   It sets `MARKETING_VERSION`, the single source of the version, and
+   increments `CURRENT_PROJECT_VERSION` (the build number) by one. Both live in
+   **six** places — Debug and Release for each of the three targets (app,
+   tests, UI tests) — and every copy must agree: `release_prep.sh` and
+   [`apple/scripts/make_dmg.sh`](apple/scripts/make_dmg.sh) both refuse to run
+   when they don't. That is why this is a script and not an Xcode General-tab
+   edit, which covers only the one target you have selected. It refuses a
+   version that is not higher than the current one, and changes nothing else —
+   no commit, no tag, no CHANGELOG.
+
+   Then write the consumer-facing notes under `## [Unreleased]` in
+   [`CHANGELOG.md`](CHANGELOG.md).
 2. **`release_prep.sh`** — validates, runs the gate (`xcodebuild test`, plus the
    release tooling's own self-tests), rolls `[Unreleased]` into a
    `## [<version>] - <date>` section, and commits. No tag yet: the version and

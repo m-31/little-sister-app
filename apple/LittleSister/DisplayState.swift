@@ -58,7 +58,7 @@ func displayState(for node: StatusNode) -> DisplayState {
     case .ok:
         return node.stale ? .warning(isStale: true) : .healthy
     case .warn:
-        return .warning(isStale: false)
+        return .warning(isStale: node.stale)
     case .error:
         return .error
     case .maintenance:
